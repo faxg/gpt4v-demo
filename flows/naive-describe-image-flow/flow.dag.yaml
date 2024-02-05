@@ -8,7 +8,7 @@ inputs:
       are key to you.
   user_prompt:
     type: string
-    default: "Describe the image:"
+    default: "Describe he image:"
   image_url:
     type: image
     default: blackboard.png
@@ -19,6 +19,9 @@ outputs:
   processed_image:
     type: string
     reference: ${preprocess_image.output}
+  original_image:
+    type: string
+    reference: ${inputs.image_url}
 nodes:
 - name: preprocess_image
   type: python

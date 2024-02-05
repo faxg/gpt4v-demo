@@ -17,7 +17,7 @@
 				"prompt-flow.prompt-flow"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -27,6 +27,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y libgl1"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

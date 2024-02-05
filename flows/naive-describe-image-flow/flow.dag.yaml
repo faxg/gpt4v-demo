@@ -1,0 +1,43 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  system_prompt:
+    type: string
+    default: You are a helpful advanced math tutor assistant. Precision and accuracy
+      are key to you.
+  user_prompt:
+    type: string
+    default: "Describe the image:"
+  image_url:
+    type: image
+    default: blackboard.png
+outputs:
+  answer:
+    type: string
+    reference: ${AOAI_vision_request.output}
+  processed_image:
+    type: string
+    reference: ${preprocess_image.output}
+nodes:
+- name: preprocess_image
+  type: python
+  source:
+    type: code
+    path: preprocess_image.py
+  inputs:
+    input_image: ${inputs.image_url}
+- name: AOAI_vision_request
+  type: custom_llm
+  source:
+    type: package_with_prompt
+    tool: promptflow.tools.aoai_gpt4v.AzureOpenAI.chat
+    path: describe_image.jinja2
+  inputs:
+    connection: aoai_connection
+    image_input: ${preprocess_image.output}
+    system_prompt: ${inputs.system_prompt}
+    user_prompt: ${inputs.user_prompt}
+    deployment_name: gpt4-vision
+    temperature: 0
+    max_tokens: 2000

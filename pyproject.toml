@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "gpt4v-demo"
+version = "0.1.0"
+description = "Playground for various GPT4with Vision on Azure use cases"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^1.11.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
